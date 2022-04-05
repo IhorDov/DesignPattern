@@ -11,15 +11,38 @@ namespace DesignPattern
 
         private Vector2 velocity;
 
+        public Vector2 Velocity { get; set; }
+
         public Fire()
         {
             this.speed = 500;
-
-            velocity = new Vector2(0, -1);
+            
+            this.Velocity = velocity; // new Vector2(0, -1);
         }
         public override void Update()
         {
-            Move();
+            if (velocity.X > 0)
+            {
+                this.velocity = new Vector2(0, -1);
+                Move();
+            }
+            else if (velocity.X < 0)
+            {
+                this.velocity = new Vector2(0, 1);
+                Move();
+            }
+            else if (velocity.Y < 0)
+            {
+                this.velocity = new Vector2(0, -1);
+                Move();
+            }
+            else if (velocity.Y > 0)
+            {
+                this.velocity = new Vector2(0, -1);
+                Move();
+            }
+
+            //Move();
         }
 
         private void Move()

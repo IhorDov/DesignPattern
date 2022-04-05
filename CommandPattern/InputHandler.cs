@@ -29,6 +29,8 @@ namespace DesignPattern
             keybinds.Add(new KeyInfo(Keys.A), new MoveCommand(new Vector2(-1, 0)));
             keybinds.Add(new KeyInfo(Keys.W), new MoveCommand(new Vector2(0, -1)));
             keybinds.Add(new KeyInfo(Keys.S), new MoveCommand(new Vector2(0, 1)));
+            keybinds.Add(new KeyInfo(Keys.T), new MoveCommand(new Vector2(0, 0)));
+
             keybinds.Add(new KeyInfo(Keys.Space), new ShootCommand());
         }
 

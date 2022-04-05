@@ -29,6 +29,7 @@ namespace DesignPattern
             if (velocity.X > 0)
             {
                 animator.PlayAnimation("Right");
+                
             }
             else if (velocity.X < 0)
             {
@@ -41,6 +42,10 @@ namespace DesignPattern
             else if (velocity.Y > 0)
             {
                 animator.PlayAnimation("Forward");
+            }
+            else if (velocity.X == 0 && velocity.Y == 0)
+            {
+                animator.PlayAnimation("Stay");
             }
         }
 
@@ -65,7 +70,7 @@ namespace DesignPattern
         {
             if (canShoot)
             {
-                GameObject go = LaserFactory.Instance.Create(FIRERTYPE.PLAYER);
+                GameObject go = FireFactory.Instance.Create(FIRERTYPE.PLAYER);
                 go.Transform.Position = GameObject.Transform.Position;
                 GameWorld.Instance.Instantiate(go);
 

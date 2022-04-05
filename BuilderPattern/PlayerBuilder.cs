@@ -21,6 +21,7 @@ namespace DesignPattern
             animator.AddAnimation(BuildAnimation("Back", new string[] { "PlayerB_1", "PlayerB_2", "PlayerB_3", "PlayerB_4" }));
             animator.AddAnimation(BuildAnimation("Right", new string[] { "PlayerR_1", "PlayerR_2", "PlayerR_3", "PlayerR_4" }));
             animator.AddAnimation(BuildAnimation("Left", new string[] { "PlayerL_1", "PlayerL_2", "PlayerL_3", "PlayerL_4" }));
+            animator.AddAnimation(BuildAnimation("Stay", new string[] { "PlayerF_2", "PlayerF_2", "PlayerF_2", "PlayerF_2" }));
         }
 
         private void BuildComponents()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,19 +7,19 @@ enum FIRERTYPE { PLAYER, ENEMY }
 
 namespace DesignPattern
 {
-    class LaserFactory : Factory
+    class FireFactory : Factory
     {
-        private static LaserFactory instance;
+        private static FireFactory instance;
 
         private GameObject prototype;
 
-        public static LaserFactory Instance
+        public static FireFactory Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new LaserFactory();
+                    instance = new FireFactory();
 
                 }
 
@@ -26,7 +27,7 @@ namespace DesignPattern
             }
         }
 
-        private LaserFactory()
+        private FireFactory()
         {
             prototype = new GameObject();
 
