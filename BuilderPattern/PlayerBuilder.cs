@@ -26,9 +26,14 @@ namespace DesignPattern
 
         private void BuildComponents()
         {
+            Player p = (Player)gameObject.AddComponent(new Player());
+
             gameObject.AddComponent(new Player());
             gameObject.AddComponent(new SpriteRenderer());
             gameObject.AddComponent(new Animator());
+
+            Collider c = (Collider)gameObject.AddComponent(new Collider());
+            c.CollisionEvent.Attach(p);
         }
 
         private Animation BuildAnimation(string animationName, string[] spriteNames)

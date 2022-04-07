@@ -16,7 +16,7 @@ namespace DesignPattern
 
         public void Execute(Player player)
         {
-            player.Move(velocity);
+            player.Move(velocity);            
         }
     }
 }

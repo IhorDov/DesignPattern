@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace DesignPattern
@@ -16,6 +17,12 @@ namespace DesignPattern
         private List<GameObject> newGameObjects = new List<GameObject>();
 
         private List<GameObject> destroyedGameObjects = new List<GameObject>();
+
+        private float lastSpawn = 0;
+
+        private static Random rnd = new Random();
+
+        public List<Collider> Colliders { get; private set; } = new List<Collider>();
 
         public static float DeltaTime { get; private set; }
 
@@ -88,6 +95,8 @@ namespace DesignPattern
                 gameObjects[i].Update(gameTime);
             }
 
+            SpawnEnemies();
+
             base.Update(gameTime);
 
             Cleanup();
@@ -129,11 +138,23 @@ namespace DesignPattern
                 newGameObjects[i].Awake();
                 newGameObjects[i].Start();
 
+                Collider c = (Collider)newGameObjects[i].GetComponent<Collider>();
+                if (c != null)
+                {
+                    Colliders.Add(c);
+                }
             }
 
             for (int i = 0; i < destroyedGameObjects.Count; i++)
             {
+                Collider c = (Collider)destroyedGameObjects[i].GetComponent<Collider>();
+
                 gameObjects.Remove(destroyedGameObjects[i]);
+
+                if (c != null)
+                {
+                    Colliders.Remove(c);
+                }
             }
             destroyedGameObjects.Clear();
             newGameObjects.Clear();
@@ -144,6 +165,37 @@ namespace DesignPattern
             Graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height - 150; //sets the height of the window
             Graphics.PreferredBackBufferWidth = Graphics.PreferredBackBufferHeight / 300 * 600; //sets the width of the window
             Graphics.ApplyChanges(); //applies the changes
+        }
+
+        private void SpawnEnemies()
+        {
+            lastSpawn += DeltaTime;
+
+            if (lastSpawn > 3)
+            {
+                GameObject e = EnemyPool.Instance.GetObject();
+
+                e.Transform.Position = new Vector2(rnd.Next(0, GraphicsDevice.Viewport.Width), 0);
+
+                Instantiate(e);
+
+                lastSpawn = 0;
+            }
+        }
+
+        public Component FindObjectOfType<T>() where T : Component
+        {
+            foreach (GameObject gameObject in gameObjects)
+            {
+                Component c = gameObject.GetComponent<T>();
+
+                if (c != null)
+                {
+                    return c;
+                }
+            }
+
+            return null;
         }
     }
 }

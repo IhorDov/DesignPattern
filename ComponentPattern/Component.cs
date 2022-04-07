@@ -8,6 +8,8 @@ namespace DesignPattern
 {
     public abstract class Component
     {
+        //protected float myScale = 0.6f;
+        protected float speed;
         public GameObject GameObject { get; set; }
 
         public virtual void Awake()

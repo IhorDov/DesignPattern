@@ -10,6 +10,7 @@ namespace DesignPattern
     {
         private static InputHandler instance;
         private Dictionary<KeyInfo, ICommand> keybinds = new Dictionary<KeyInfo, ICommand>();
+        private ButtonEvent buttonEvent = new ButtonEvent();
 
         public static InputHandler Instance 
         { 
@@ -43,8 +44,13 @@ namespace DesignPattern
                 if (keyState.IsKeyDown(keyInfo.Key))
                 {
                     keybinds[keyInfo].Execute(player);
-
+                    buttonEvent.Notify(keyInfo.Key, BUTTONSTATE.DOWN);
                     keyInfo.IsDown = true;
+                }
+
+                if (!keyState.IsKeyDown(keyInfo.Key) && keyInfo.IsDown == true)
+                {
+                    buttonEvent.Notify(keyInfo.Key, BUTTONSTATE.UP);
                 }
             }
         }
