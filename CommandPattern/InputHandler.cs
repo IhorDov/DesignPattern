@@ -10,19 +10,7 @@ namespace DesignPattern
     {
         private static InputHandler instance;
         private Dictionary<KeyInfo, ICommand> keybinds = new Dictionary<KeyInfo, ICommand>();
-        private ButtonEvent buttonEvent = new ButtonEvent();
-
-        public static InputHandler Instance 
-        { 
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new InputHandler();
-                }
-                return instance;
-            }
-        }
+        private ButtonEvent buttonEvent = new ButtonEvent();        
 
         private InputHandler()
         {
@@ -31,7 +19,6 @@ namespace DesignPattern
             keybinds.Add(new KeyInfo(Keys.W), new MoveCommand(new Vector2(0, -1)));
             keybinds.Add(new KeyInfo(Keys.S), new MoveCommand(new Vector2(0, 1)));
             keybinds.Add(new KeyInfo(Keys.T), new MoveCommand(new Vector2(0, 0)));
-
             keybinds.Add(new KeyInfo(Keys.Space), new ShootCommand());
         }
 
@@ -52,6 +39,17 @@ namespace DesignPattern
                 {
                     buttonEvent.Notify(keyInfo.Key, BUTTONSTATE.UP);
                 }
+            }
+        }
+        public static InputHandler Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new InputHandler();
+                }
+                return instance;
             }
         }
     }
